@@ -1,0 +1,271 @@
+---
+swagger: "2.0"
+info:
+  description: "REST API documentation for the plug-in Repository Templates for Bitbucket\
+    \ Server.\n                                    The REST API allows you to maintain\
+    \ the project settings of the\n                                    plug-in as\
+    \ well as to assign repositories to a template."
+  version: "v1"
+  title: "Repository Templates for Bitbucket Server REST API"
+  contact:
+    name: "Mibex Software GmbH"
+    url: "https://www.mibexsoftware.com"
+  license:
+    name: "Copyright (c) 2018 by Mibex Software GmbH, Switzerland. All rights reserved."
+    url: "https://mibexsoftware.com/imprint/"
+host: "YOUR_BITBUCKET_SERVER"
+basePath: "/rest/templates4stash/1.0"
+tags:
+- name: "Project settings"
+- name: "Project template mappings"
+schemes:
+- "http"
+- "https"
+paths:
+  /projects/{projectKey}/settings:
+    get:
+      tags:
+      - "Project settings"
+      summary: "Returns the project settings of the plug-in."
+      description: ""
+      operationId: "getProjectSettings"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Project settings found"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+        404:
+          description: "Project not found or no project settings"
+    put:
+      tags:
+      - "Project settings"
+      summary: "Updates the project settings of the plug-in."
+      description: ""
+      operationId: "updateProjectSettings"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Project settings"
+        required: true
+        schema:
+          $ref: "#/definitions/ProjectSettings"
+      responses:
+        200:
+          description: "Project settings updated"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+        404:
+          description: "Project not found or no project settings"
+  /projects/{projectKey}/template-mappings:
+    get:
+      tags:
+      - "Project template mappings"
+      summary: "Returns the template mappings of this project."
+      description: ""
+      operationId: "getTemplateMappings"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Project template mappings found"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+        404:
+          description: "Project not found"
+    post:
+      tags:
+      - "Project template mappings"
+      summary: "Creates a template to repository mapping."
+      description: ""
+      operationId: "createTemplateMapping"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Template repository mapping details"
+        required: true
+        schema:
+          $ref: "#/definitions/TemplateMapping"
+      responses:
+        200:
+          description: "Template repository mapping created"
+        400:
+          description: "Bad input parameters like a non-existing template or repositories"
+        401:
+          description: "The currently authenticated user does not have REPO_ADMIN\
+            \ credentials"
+    put:
+      tags:
+      - "Project template mappings"
+      summary: "Updates a template to repository mapping."
+      description: ""
+      operationId: "updateTemplateMapping"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Template repository mapping details"
+        required: true
+        schema:
+          $ref: "#/definitions/TemplateMapping"
+      responses:
+        200:
+          description: "Template repository mapping updated"
+        400:
+          description: "Bad input parameters like a non-existing template or repositories"
+        401:
+          description: "The currently authenticated user does not have REPO_ADMIN\
+            \ credentials"
+    delete:
+      tags:
+      - "Project template mappings"
+      summary: "Deletes a template repositories mapping."
+      description: ""
+      operationId: "deleteTemplateMapping"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Template repository mapping details"
+        required: true
+        schema:
+          $ref: "#/definitions/TemplateMapping"
+      responses:
+        200:
+          description: "Template repository mapping deleted"
+        400:
+          description: "Bad input parameters like a non-existing template or repositories"
+        401:
+          description: "The currently authenticated user does not have REPO_ADMIN\
+            \ credentials"
+definitions:
+  ProjectSettings:
+    type: "object"
+    properties:
+      templateFeatureEnabled:
+        type: "boolean"
+        description: "Enables/disables repository templates for project "
+        default: false
+      allowUsersToChooseTemplate:
+        type: "boolean"
+        description: "true if a user is allowed to choose another template than the\
+          \ default when creating a new repository"
+        default: false
+      repoMirrorEnabled:
+        type: "boolean"
+        description: "true if you want the content of a template being mirrored to\
+          \ a repository on its creation"
+        default: false
+      defaultTemplateRepositoryId:
+        type: "integer"
+        format: "int32"
+        description: "the ID of the repository which should be the template for all\
+          \ new repositories in this project"
+      settingsToUse:
+        description: "choose all settings which should be copied (when creating a\
+          \ new repository with a template) or reset (when you have the periodic settings\
+          \ reset enabled below) from templates to their associated repositories"
+        $ref: "#/definitions/SettingsToUse"
+      cronExpression:
+        type: "string"
+        description: "the cron expression to use for resetting the settings of associated\
+          \ repositories to the one of the configured template (use null to deactivate\
+          \ the periodic reset)"
+  SettingsToUse:
+    type: "object"
+    properties:
+      repositoryDetails:
+        type: "boolean"
+        description: "true if the repository details (default branch and \"Allow forks\"\
+          \ setting) of the template should be applied to associated repositories"
+        default: false
+      repositoryHooks:
+        type: "boolean"
+        description: "true if the hook settings of the template should be applied\
+          \ to associated repositories"
+        default: false
+      repositoryHooksToIgnore:
+        type: "array"
+        description: "a list of Bitbucket Server hook keys for which settings should\
+          \ not get overwritten by the ones from the template"
+        items:
+          type: "string"
+      repositoryPermissions:
+        type: "boolean"
+        description: "true if the repository permissions of the template should be\
+          \ applied to associated repositories"
+        default: false
+      branchPermissions:
+        type: "boolean"
+        description: "true if the branch permissions of the template should be applied\
+          \ to associated repositories"
+        default: false
+      pullRequestSettings:
+        type: "boolean"
+        description: "true if the pull request settings of the template should be\
+          \ applied to associated repositories"
+        default: false
+      webhooks:
+        type: "boolean"
+        description: "(since version 2.2.0) true if the webhooks of the template should\
+          \ be applied to associated repositories"
+        default: false
+      accessKeys:
+        type: "boolean"
+        description: "(since version 2.2.0) true if the access keys of the template\
+          \ should be applied to associated repositories"
+        default: false
+  TemplateMapping:
+    type: "object"
+    properties:
+      template:
+        type: "object"
+        description: "the template repository; just pass its repository ID, e.g.,\
+          \ { \"id\": 1 }"
+        additionalProperties:
+          type: "object"
+      repos:
+        type: "array"
+        description: "the list of repositories that should be assigned to this template;\
+          \ just pass a list of repository ID's, e.g., [ { \"id\": 1 }, { \"id\":\
+          \ 2 } ]. You should leave this empty for DELETE."
+        items:
+          type: "object"
+          additionalProperties:
+            type: "object"
