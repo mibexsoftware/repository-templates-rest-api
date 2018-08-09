@@ -4,7 +4,7 @@ info:
   description: "REST API documentation for the plug-in Repository Templates for Bitbucket\
     \ Server.\n                                    The REST API allows you to maintain\
     \ the project settings of the\n                                    plug-in as\
-    \ well as to assign repositories to a template."
+    \ well as the global repository templates."
   version: "v1"
   title: "Repository Templates for Bitbucket Server REST API"
   contact:
@@ -16,12 +16,189 @@ info:
 host: "YOUR_BITBUCKET_SERVER"
 basePath: "/rest/templates4stash/1.0"
 tags:
+- name: "Global templates"
 - name: "Project settings"
-- name: "Project template mappings"
+- name: "Project templates"
 schemes:
 - "http"
 - "https"
 paths:
+  /global-templates:
+    get:
+      tags:
+      - "Global templates"
+      summary: "Returns the defined global repository templates."
+      description: ""
+      operationId: "getGlobalTemplates"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Global repository templates found"
+        401:
+          description: "The currently authenticated user does not have ADMIN credentials"
+    post:
+      tags:
+      - "Global templates"
+      summary: "Creates a global repository template."
+      description: ""
+      operationId: "createGlobalTemplate"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Global template details"
+        required: true
+        schema:
+          $ref: "#/definitions/GlobalTemplate"
+      responses:
+        200:
+          description: "Global repository template created"
+        400:
+          description: "Invalid input parameters like a non-existing template"
+        401:
+          description: "The currently authenticated user does not have ADMIN credentials"
+    put:
+      tags:
+      - "Global templates"
+      summary: "Updates a global repository template."
+      description: ""
+      operationId: "updateGlobalTemplate"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Global template details"
+        required: true
+        schema:
+          $ref: "#/definitions/GlobalTemplate"
+      responses:
+        200:
+          description: "Global repository template updated"
+        401:
+          description: "The currently authenticated user does not have ADMIN credentials"
+        404:
+          description: "The global template does not exist"
+    delete:
+      tags:
+      - "Global templates"
+      summary: "Deletes a global repository template."
+      description: ""
+      operationId: "deleteGlobalTemplate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "Global repository template deleted"
+        401:
+          description: "The currently authenticated user does not have ADMIN credentials"
+        404:
+          description: "The global template does not exist"
+  /projects/{projectKey}/project-templates:
+    get:
+      tags:
+      - "Project templates"
+      summary: "Returns the defined project-level repository templates."
+      description: ""
+      operationId: "getProjectTemplates"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Project-level repository templates found"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+    post:
+      tags:
+      - "Project templates"
+      summary: "Creates a project-level repository template."
+      description: ""
+      operationId: "createProjectTemplate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Project template details"
+        required: true
+        schema:
+          $ref: "#/definitions/ProjectTemplate"
+      responses:
+        200:
+          description: "Project-level repository template created"
+        400:
+          description: "Invalid input parameters like a non-existing template"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+    put:
+      tags:
+      - "Project templates"
+      summary: "Updates a project-level repository template."
+      description: ""
+      operationId: "updateProjectTemplate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Project template details"
+        required: true
+        schema:
+          $ref: "#/definitions/ProjectTemplate"
+      responses:
+        200:
+          description: "Project-level repository template updated"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+        404:
+          description: "The project template does not exist"
+    delete:
+      tags:
+      - "Project templates"
+      summary: "Deletes a project-level repository template."
+      description: ""
+      operationId: "deleteProjectTemplate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "Project-level repository template deleted"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+        404:
+          description: "The project template does not exist"
   /projects/{projectKey}/settings:
     get:
       tags:
@@ -74,107 +251,26 @@ paths:
             \ credentials"
         404:
           description: "Project not found or no project settings"
-  /projects/{projectKey}/template-mappings:
-    get:
-      tags:
-      - "Project template mappings"
-      summary: "Returns the template mappings of this project."
-      description: ""
-      operationId: "getTemplateMappings"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "projectKey"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "Project template mappings found"
-        401:
-          description: "The currently authenticated user does not have PROJECT_ADMIN\
-            \ credentials"
-        404:
-          description: "Project not found"
-    post:
-      tags:
-      - "Project template mappings"
-      summary: "Creates a template to repository mapping."
-      description: ""
-      operationId: "createTemplateMapping"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "projectKey"
-        in: "path"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "Template repository mapping details"
-        required: true
-        schema:
-          $ref: "#/definitions/TemplateMapping"
-      responses:
-        200:
-          description: "Template repository mapping created"
-        400:
-          description: "Bad input parameters like a non-existing template or repositories"
-        401:
-          description: "The currently authenticated user does not have REPO_ADMIN\
-            \ credentials"
-    put:
-      tags:
-      - "Project template mappings"
-      summary: "Updates a template to repository mapping."
-      description: ""
-      operationId: "updateTemplateMapping"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "projectKey"
-        in: "path"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "Template repository mapping details"
-        required: true
-        schema:
-          $ref: "#/definitions/TemplateMapping"
-      responses:
-        200:
-          description: "Template repository mapping updated"
-        400:
-          description: "Bad input parameters like a non-existing template or repositories"
-        401:
-          description: "The currently authenticated user does not have REPO_ADMIN\
-            \ credentials"
-    delete:
-      tags:
-      - "Project template mappings"
-      summary: "Deletes a template repositories mapping."
-      description: ""
-      operationId: "deleteTemplateMapping"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "projectKey"
-        in: "path"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "Template repository mapping details"
-        required: true
-        schema:
-          $ref: "#/definitions/TemplateMapping"
-      responses:
-        200:
-          description: "Template repository mapping deleted"
-        400:
-          description: "Bad input parameters like a non-existing template or repositories"
-        401:
-          description: "The currently authenticated user does not have REPO_ADMIN\
-            \ credentials"
 definitions:
+  GlobalTemplate:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "the ID of the global template configuration"
+      template:
+        type: "object"
+        description: "the template repository; just pass its repository ID, e.g.,\
+          \ { \"id\": 1 }"
+        additionalProperties:
+          type: "object"
+      description:
+        type: "string"
+        description: "the description of the global template"
+      logoData:
+        type: "string"
+        description: "the base64-encoded image logo"
   ProjectSettings:
     type: "object"
     properties:
@@ -192,11 +288,10 @@ definitions:
         description: "true if you want the content of a template being mirrored to\
           \ a repository on its creation"
         default: false
-      defaultTemplateRepositoryId:
-        type: "integer"
-        format: "int32"
-        description: "the ID of the repository which should be the template for all\
-          \ new repositories in this project"
+      forkTemplateSyncEnabled:
+        type: "boolean"
+        description: "Sync settings from template to new repository forks"
+        default: false
       settingsToUse:
         description: "choose all settings which should be copied (when creating a\
           \ new repository with a template) or reset (when you have the periodic settings\
@@ -207,6 +302,38 @@ definitions:
         description: "the cron expression to use for resetting the settings of associated\
           \ repositories to the one of the configured template (use null to deactivate\
           \ the periodic reset)"
+  ProjectTemplate:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "the ID of the project-level template configuration"
+      template:
+        type: "object"
+        description: "the template repository; just pass its repository ID, e.g.,\
+          \ { \"id\": 1 }"
+        additionalProperties:
+          type: "object"
+      description:
+        type: "string"
+        description: "the description of the project-level template"
+      logoData:
+        type: "string"
+        description: "the base64-encoded image logo"
+      defaultTemplate:
+        type: "boolean"
+        description: "is default template"
+        default: false
+      repos:
+        type: "array"
+        description: "the list of repositories that should be assigned to this template;\
+          \ just pass a list of repository ID's, e.g., [ { \"id\": 1 }, { \"id\":\
+          \ 2 } ]. You should leave this empty for DELETE."
+        items:
+          type: "object"
+          additionalProperties:
+            type: "object"
   SettingsToUse:
     type: "object"
     properties:
@@ -251,21 +378,3 @@ definitions:
         description: "(since version 2.2.0) true if the access keys of the template\
           \ should be applied to associated repositories"
         default: false
-  TemplateMapping:
-    type: "object"
-    properties:
-      template:
-        type: "object"
-        description: "the template repository; just pass its repository ID, e.g.,\
-          \ { \"id\": 1 }"
-        additionalProperties:
-          type: "object"
-      repos:
-        type: "array"
-        description: "the list of repositories that should be assigned to this template;\
-          \ just pass a list of repository ID's, e.g., [ { \"id\": 1 }, { \"id\":\
-          \ 2 } ]. You should leave this empty for DELETE."
-        items:
-          type: "object"
-          additionalProperties:
-            type: "object"
