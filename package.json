@@ -21,5 +21,8 @@
     "test": "swagger-repo validate",
     "start": "gulp serve",
     "deploy-branch": "node ./scripts/deploy-branch.js"
+  },
+  "engines": {
+    "node" : "10.15.3"
   }
 }
