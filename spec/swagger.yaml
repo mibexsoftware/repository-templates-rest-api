@@ -1,21 +1,22 @@
 ---
 swagger: "2.0"
 info:
-  description: "REST API documentation for the plug-in Repository Templates for Bitbucket\
-    \ Server.\n                                    The REST API allows you to maintain\
-    \ the project settings of the\n                                    plug-in as\
-    \ well as the global repository templates."
+  description: "REST API documentation for the app Repository Templates for Bitbucket.\n\
+    \                                    The REST API allows you to maintain the project\
+    \ settings of the\n                                    app as well as the global\
+    \ repository templates."
   version: "v1"
-  title: "Repository Templates for Bitbucket Server REST API"
+  title: "Repository Templates for Bitbucket REST API"
   contact:
     name: "Mibex Software GmbH"
     url: "https://www.mibexsoftware.com"
   license:
-    name: "Copyright (c) 2018 by Mibex Software GmbH, Switzerland. All rights reserved."
+    name: "Copyright (c) 2019 by Mibex Software GmbH, Switzerland. All rights reserved."
     url: "https://mibexsoftware.com/imprint/"
 host: "YOUR_BITBUCKET_SERVER"
 basePath: "/rest/templates4stash/1.0"
 tags:
+- name: "Create repository"
 - name: "Global templates"
 - name: "Project settings"
 - name: "Project templates"
@@ -199,6 +200,38 @@ paths:
             \ credentials"
         404:
           description: "The project template does not exist"
+  /projects/{projectKey}/repo-template:
+    post:
+      tags:
+      - "Create repository"
+      summary: "Creates a repository from a template."
+      description: ""
+      operationId: "createRepoFromTemplate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Repository create from template details"
+        required: true
+        schema:
+          $ref: "#/definitions/RepoCreateInfo"
+      responses:
+        202:
+          description: "Repository from template creation triggered"
+        400:
+          description: "The given repository template or the new repository parameters\
+            \ are invalid"
+        401:
+          description: "The currently authenticated user does not have PROJECT_ADMIN\
+            \ credentials"
+        404:
+          description: "The project does not exist"
   /projects/{projectKey}/settings:
     get:
       tags:
@@ -288,6 +321,13 @@ definitions:
         description: "true if you want the content of a template being mirrored to\
           \ a repository on its creation"
         default: false
+      gitMirrorType:
+        type: "string"
+        description: "Configure how the repository template content should be copied\
+          \ to the new repository."
+        enum:
+        - "MIRROR"
+        - "WITHOUTHISTORY"
       forkTemplateSyncEnabled:
         type: "boolean"
         description: "Sync settings from template to new repository forks"
@@ -334,6 +374,22 @@ definitions:
           type: "object"
           additionalProperties:
             type: "object"
+  RepoCreateInfo:
+    type: "object"
+    required:
+    - "repoName"
+    - "template"
+    properties:
+      template:
+        type: "object"
+        description: "the template repository; just pass its repository ID, e.g.,\
+          \ { \"id\": 1 } OR project key and repository slug, e.g. { \"project\":\
+          \ { \"key\": \"PROJECT_1\" }, \"slug\": \"rep_1\" }"
+        additionalProperties:
+          type: "object"
+      repoName:
+        type: "string"
+        description: "the name of the to be created repository from the given template"
   SettingsToUse:
     type: "object"
     properties:
