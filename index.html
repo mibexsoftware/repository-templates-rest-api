@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repository Templates for Bitbucket Server REST API Specification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  
+  <body>
+  
+    <redoc id="redoc-container"></redoc>
+  
+    <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
+  
+    <script>
+      Redoc.init('./swagger.json', {
+        hideDownloadButton: true
+      }, document.getElementById('redoc-container'))
+    </script>
+  </body>
+</html>
