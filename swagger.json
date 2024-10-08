@@ -752,13 +752,15 @@
               "type" : "boolean"
             },
             "defaultReviewers": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "Requires Repository Permissions to be enabled"
             },
             "pullRequestTemplate": {
               "type": "boolean"
             },
             "reviewerGroups": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "Requires Repository Permissions to be enabled"
             }
           },
           "description" : "choose all settings which should be copied (when creating a new repository with a template) or reset (when you have the periodic settings reset enabled below) from templates to their associated repositories"
