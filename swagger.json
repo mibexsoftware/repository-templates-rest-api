@@ -2,24 +2,28 @@
     "openapi" : "3.0.1",
     "info" : {
       "title" : "Repository Templates for Bitbucket REST API",
-      "description" : "REST API documentation for the app Repository Templates for Bitbucket.\n                                The REST API allows you to maintain the project settings of the\n                                app as well as the global repository templates.",
+      "description" : "REST API documentation for the app Repository Templates for Bitbucket.\n                                        The REST API allows you to maintain the project settings of the\n                                        app as well as the global repository templates.",
       "contact" : {
         "name" : "Mibex Software GmbH",
         "url" : "https://www.mibexsoftware.com"
       },
       "license" : {
-        "name" : "Copyright (c) 2022 by Mibex Software GmbH, Switzerland. All rights reserved.",
+        "name" : "Copyright (c) 2024 by Mibex Software GmbH, Switzerland. All rights reserved.",
         "url" : "https://mibexsoftware.com/imprint/"
       },
       "version" : "v1"
     },
-    "servers" : [ {
-      "url" : "https://YOUR_BITBUCKET_SERVER//rest/templates4stash/1.0"
-    } ],
+    "servers" : [
+      {
+        "url" : "https://YOUR_BITBUCKET_SERVER//rest/templates4stash/1.0"
+      }
+    ],
     "paths" : {
       "/global-templates" : {
         "get" : {
-          "tags" : [ "Global templates" ],
+          "tags" : [
+            "Global templates"
+          ],
           "summary" : "Returns the defined global repository templates.",
           "operationId" : "getGlobalTemplates",
           "responses" : {
@@ -42,7 +46,9 @@
           }
         },
         "put" : {
-          "tags" : [ "Global templates" ],
+          "tags" : [
+            "Global templates"
+          ],
           "summary" : "Updates a global repository template.",
           "operationId" : "updateGlobalTemplate",
           "requestBody" : {
@@ -75,7 +81,9 @@
           }
         },
         "post" : {
-          "tags" : [ "Global templates" ],
+          "tags" : [
+            "Global templates"
+          ],
           "summary" : "Creates a global repository template.",
           "operationId" : "createGlobalTemplate",
           "requestBody" : {
@@ -108,19 +116,23 @@
           }
         },
         "delete" : {
-          "tags" : [ "Global templates" ],
+          "tags" : [
+            "Global templates"
+          ],
           "summary" : "Deletes a global repository template.",
           "operationId" : "deleteGlobalTemplate",
-          "parameters" : [ {
-            "name" : "id",
-            "in" : "query",
-            "description" : "ID of template that should be deleted",
-            "required" : true,
-            "schema" : {
-              "type" : "integer",
-              "format" : "int32"
+          "parameters" : [
+            {
+              "name" : "id",
+              "in" : "query",
+              "description" : "ID of template that should be deleted",
+              "required" : true,
+              "schema" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
             }
-          } ],
+          ],
           "responses" : {
             "200" : {
               "description" : "Global repository templates deleted"
@@ -136,17 +148,21 @@
       },
       "/projects/{projectKey}/project-templates" : {
         "get" : {
-          "tags" : [ "Project templates" ],
+          "tags" : [
+            "Project templates"
+          ],
           "summary" : "Returns the defined project-level repository templates.",
           "operationId" : "getProjectTemplates",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
             }
-          } ],
+          ],
           "responses" : {
             "200" : {
               "description" : "Project-level repository templates found",
@@ -167,17 +183,21 @@
           }
         },
         "put" : {
-          "tags" : [ "Project templates" ],
+          "tags" : [
+            "Project templates"
+          ],
           "summary" : "Updates a project-level repository template.",
           "operationId" : "updateProjectTemplate",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
             }
-          } ],
+          ],
           "requestBody" : {
             "content" : {
               "application/json" : {
@@ -208,17 +228,21 @@
           }
         },
         "post" : {
-          "tags" : [ "Project templates" ],
+          "tags" : [
+            "Project templates"
+          ],
           "summary" : "Creates a project-level repository template.",
           "operationId" : "createProjectTemplate",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
             }
-          } ],
+          ],
           "requestBody" : {
             "content" : {
               "application/json" : {
@@ -249,26 +273,31 @@
           }
         },
         "delete" : {
-          "tags" : [ "Project templates" ],
+          "tags" : [
+            "Project templates"
+          ],
           "summary" : "Deletes a project-level repository template.",
           "operationId" : "deleteProjectTemplate",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "description" : "Project key where the template will be delete",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "description" : "Project key where the template will be delete",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            {
+              "name" : "id",
+              "in" : "query",
+              "description" : "ID of template that should be deleted",
+              "schema" : {
+                "type" : "integer",
+                "format" : "int32"
+              }
             }
-          }, {
-            "name" : "id",
-            "in" : "query",
-            "description" : "ID of template that should be deleted",
-            "schema" : {
-              "type" : "integer",
-              "format" : "int32"
-            }
-          } ],
+          ],
           "responses" : {
             "200" : {
               "description" : "Project-level repository templates deleted"
@@ -284,18 +313,22 @@
       },
       "/projects/{projectKey}/repo-template" : {
         "post" : {
-          "tags" : [ "Create repository" ],
+          "tags" : [
+            "Create repository"
+          ],
           "summary" : "Creates a repository from a template. Only available since app version 3.4.0.",
           "operationId" : "createRepoFromTemplate",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "description" : "Project under which the new repository will be created",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "description" : "Project under which the new repository will be created",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
             }
-          } ],
+          ],
           "requestBody" : {
             "content" : {
               "application/json" : {
@@ -324,17 +357,21 @@
       },
       "/projects/{projectKey}/settings" : {
         "get" : {
-          "tags" : [ "Project settings" ],
+          "tags" : [
+            "Project settings"
+          ],
           "summary" : "Returns the project settings of the plug-in.",
           "operationId" : "getProjectSettings",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
             }
-          } ],
+          ],
           "responses" : {
             "200" : {
               "description" : "Project settings found",
@@ -355,17 +392,21 @@
           }
         },
         "put" : {
-          "tags" : [ "Project settings" ],
+          "tags" : [
+            "Project settings"
+          ],
           "summary" : "Updates the project settings of the plug-in.",
           "operationId" : "saveProjectSettings",
-          "parameters" : [ {
-            "name" : "projectKey",
-            "in" : "path",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+          "parameters" : [
+            {
+              "name" : "projectKey",
+              "in" : "path",
+              "required" : true,
+              "schema" : {
+                "type" : "string"
+              }
             }
-          } ],
+          ],
           "requestBody" : {
             "content" : {
               "application/json" : {
@@ -387,15 +428,8 @@
                 }
               }
             },
-            "400": {
-              "description": "Invalid input parameters.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ProjectSettingsError"
-                  }
-                }
-              }
+            "400" : {
+              "description" : "Bad request: the provided project settings are invalid"
             },
             "401" : {
               "description" : "The currently authenticated user does not have PROJECT_ADMIN credentials"
@@ -456,7 +490,10 @@
             "gitMirrorType" : {
               "type" : "string",
               "description" : "Configure how the repository template content should be copied to the new repository.",
-              "enum" : [ "MIRROR", "WITHOUTHISTORY" ]
+              "enum" : [
+                "MIRROR",
+                "WITHOUTHISTORY"
+              ]
             },
             "repoMirrorEnabled" : {
               "type" : "boolean",
@@ -468,17 +505,6 @@
             "templateFeatureEnabled" : {
               "type" : "boolean",
               "description" : "Enables/disables repository templates for project "
-            }
-          }
-        },
-        "ProjectSettingsError": {
-          "type": "object",
-          "properties": {
-            "errors": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           }
         },
@@ -504,9 +530,14 @@
             },
             "repos" : {
               "type" : "array",
-              "description" : "the list of repositories that should be assigned to this template; just pass a list of repository ID's, e.g., [ { \"id\": 1 }, { \"id\": 2 } ]. You should leave this empty for DELETE.",
+              "description" : "the list of repositories that should be assigned to this template; just pass a list of repository ID's, e.g., [ { \"id\" : 1 }, { \"id\" : 2 } ]. You should leave this empty for DELETE.",
               "items" : {
-                "$ref" : "#/components/schemas/RestRepository"
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "object",
+                  "description" : "the list of repositories that should be assigned to this template; just pass a list of repository ID's, e.g., [ { \"id\" : 1 }, { \"id\" : 2 } ]. You should leave this empty for DELETE."
+                },
+                "description" : "the list of repositories that should be assigned to this template; just pass a list of repository ID's, e.g., [ { \"id\" : 1 }, { \"id\" : 2 } ]. You should leave this empty for DELETE."
               }
             },
             "template" : {
@@ -515,7 +546,10 @@
           }
         },
         "RepoCreateInfo" : {
-          "required" : [ "repoName", "template" ],
+          "required" : [
+            "repoName",
+            "template"
+          ],
           "type" : "object",
           "properties" : {
             "repoName" : {
@@ -526,184 +560,6 @@
               "$ref" : "#/components/schemas/RestRepositoryRef"
             }
           }
-        },
-        "RestProject" : {
-          "type" : "object",
-          "properties" : {
-            "avatar" : {
-              "type" : "string"
-            },
-            "avatarUrl" : {
-              "type" : "string",
-              "writeOnly" : true
-            },
-            "description" : {
-              "type" : "string"
-            },
-            "empty" : {
-              "type" : "boolean"
-            },
-            "id" : {
-              "type" : "integer",
-              "format" : "int32"
-            },
-            "key" : {
-              "type" : "string"
-            },
-            "links" : {
-              "type" : "object",
-              "properties" : {
-                "empty" : {
-                  "type" : "boolean"
-                }
-              },
-              "additionalProperties" : {
-                "type" : "object"
-              },
-              "writeOnly" : true
-            },
-            "name" : {
-              "type" : "string"
-            },
-            "namespace" : {
-              "type" : "string"
-            },
-            "public" : {
-              "type" : "boolean"
-            },
-            "type" : {
-              "type" : "string",
-              "enum" : [ "NORMAL", "PERSONAL" ]
-            }
-          },
-          "additionalProperties" : {
-            "type" : "object"
-          }
-        },
-        "RestRelatedLinks" : {
-          "type" : "object",
-          "properties" : {
-            "empty" : {
-              "type" : "boolean"
-            }
-          },
-          "additionalProperties" : {
-            "type" : "object"
-          }
-        },
-        "RestRepository" : {
-          "type" : "object",
-          "properties" : {
-            "defaultBranch" : {
-              "type" : "string"
-            },
-            "description" : {
-              "type" : "string"
-            },
-            "empty" : {
-              "type" : "boolean"
-            },
-            "forkable" : {
-              "type" : "boolean"
-            },
-            "id" : {
-              "type" : "integer",
-              "format" : "int32"
-            },
-            "links" : {
-              "type" : "object",
-              "properties" : {
-                "empty" : {
-                  "type" : "boolean"
-                }
-              },
-              "additionalProperties" : {
-                "type" : "object"
-              },
-              "writeOnly" : true
-            },
-            "name" : {
-              "type" : "string"
-            },
-            "project" : {
-              "type" : "object",
-              "properties" : {
-                "avatar" : {
-                  "type" : "string"
-                },
-                "avatarUrl" : {
-                  "type" : "string",
-                  "writeOnly" : true
-                },
-                "description" : {
-                  "type" : "string"
-                },
-                "empty" : {
-                  "type" : "boolean"
-                },
-                "id" : {
-                  "type" : "integer",
-                  "format" : "int32"
-                },
-                "key" : {
-                  "type" : "string"
-                },
-                "links" : {
-                  "type" : "object",
-                  "properties" : {
-                    "empty" : {
-                      "type" : "boolean"
-                    }
-                  },
-                  "additionalProperties" : {
-                    "type" : "object"
-                  },
-                  "writeOnly" : true
-                },
-                "name" : {
-                  "type" : "string"
-                },
-                "namespace" : {
-                  "type" : "string"
-                },
-                "public" : {
-                  "type" : "boolean"
-                },
-                "type" : {
-                  "type" : "string",
-                  "enum" : [ "NORMAL", "PERSONAL" ]
-                }
-              },
-              "additionalProperties" : {
-                "type" : "object"
-              }
-            },
-            "public" : {
-              "type" : "boolean"
-            },
-            "relatedLinks" : {
-              "type" : "object",
-              "properties" : {
-                "empty" : {
-                  "type" : "boolean"
-                }
-              },
-              "additionalProperties" : {
-                "type" : "object"
-              }
-            },
-            "scmId" : {
-              "type" : "string"
-            },
-            "slug" : {
-              "type" : "string"
-            }
-          },
-          "additionalProperties" : {
-            "type" : "object",
-            "description" : "the list of repositories that should be assigned to this template; just pass a list of repository ID's, e.g., [ { \"id\": 1 }, { \"id\": 2 } ]. You should leave this empty for DELETE."
-          },
-          "description" : "the list of repositories that should be assigned to this template; just pass a list of repository ID's, e.g., [ { \"id\": 1 }, { \"id\": 2 } ]. You should leave this empty for DELETE."
         },
         "RestRepositoryRef" : {
           "type" : "object",
@@ -719,7 +575,7 @@
               "type" : "string"
             }
           },
-          "description" : "the template repository; just pass its repository ID, e.g., { \"id\": 1 } OR project key and repository slug, e.g. { \"project\": { \"key\": \"PROJECT_1\" }, \"slug\": \"rep_1\" }"
+          "description" : "the template repository; just pass its repository ID, e.g., { \"id\" : 1 } OR project key and repository slug, e.g. { \"project\" : { \"key\" : \"PROJECT_1\" }, \"slug\" : \"rep_1\" }"
         },
         "SettingsToUse" : {
           "type" : "object",
@@ -730,7 +586,14 @@
             "branchPermissions" : {
               "type" : "boolean"
             },
+            "defaultReviewersAndReviewerGroups" : {
+              "type" : "boolean",
+              "description": "Requires Repository Permissions to be enabled"
+            },
             "pullRequestSettings" : {
+              "type" : "boolean"
+            },
+            "pullRequestTemplate" : {
               "type" : "boolean"
             },
             "repositoryDetails" : {
@@ -750,17 +613,6 @@
             },
             "webhooks" : {
               "type" : "boolean"
-            },
-            "defaultReviewers": {
-              "type": "boolean",
-              "description": "Requires Repository Permissions to be enabled"
-            },
-            "pullRequestTemplate": {
-              "type": "boolean"
-            },
-            "reviewerGroups": {
-              "type": "boolean",
-              "description": "Requires Repository Permissions to be enabled"
             }
           },
           "description" : "choose all settings which should be copied (when creating a new repository with a template) or reset (when you have the periodic settings reset enabled below) from templates to their associated repositories"
