@@ -583,12 +583,24 @@
             "accessKeys" : {
               "type" : "boolean"
             },
+            "autoDecline": {
+              "type": "boolean"
+            },
+            "autoMergeSettings": {
+              "type": "boolean"
+            },
             "branchPermissions" : {
               "type" : "boolean"
+            },
+            "codeInsights": {
+              "type": "boolean"
             },
             "defaultReviewersAndReviewerGroups" : {
               "type" : "boolean",
               "description": "Requires Repository Permissions to be enabled"
+            },
+            "jiraIssues": {
+              "type": "boolean"
             },
             "pullRequestSettings" : {
               "type" : "boolean"
@@ -611,8 +623,20 @@
             "repositoryPermissions" : {
               "type" : "boolean"
             },
+            "requiredBuild": {
+              "type": "boolean"
+            },
+            "requiredTasks": {
+              "type": "boolean"
+            },
+            "secretScanning": {
+              "type": "boolean"
+            },
             "webhooks" : {
               "type" : "boolean"
+            },
+            "workflowBranches": {
+              "type": "boolean"
             }
           },
           "description" : "choose all settings which should be copied (when creating a new repository with a template) or reset (when you have the periodic settings reset enabled below) from templates to their associated repositories"
